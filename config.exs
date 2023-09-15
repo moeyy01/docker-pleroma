@@ -40,6 +40,16 @@ config :pleroma, Pleroma.Repo,
     ]
   ]
 
+config :pleroma, Pleroma.Emails.Mailer,
+  enabled: true,
+  adapter: Swoosh.Adapters.SMTP,
+  relay: "smtp.qiye.aliyun.com",
+  username: System.get_env("MAIL_USER", "1"),
+  password: System.get_env("MAIL_PASS", "1"),
+  port: 465,
+  ssl: true,
+  auth: :always
+
 # Configure web push notifications
 config :web_push_encryption, :vapid_details, subject: "mailto:#{System.get_env("NOTIFY_EMAIL")}"
 
