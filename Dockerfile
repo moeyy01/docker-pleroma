@@ -34,7 +34,10 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
     && mix release --path /pleroma
 
 COPY ./config.exs /etc/pleroma/config.exs
-RUN sudo chmod o= /etc/pleroma/config.exs
+
+USER root
+RUN chmod o= /etc/pleroma/config.exs
+USER pleroma
 
 EXPOSE 4000
 
