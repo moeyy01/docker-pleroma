@@ -34,4 +34,4 @@ RUN chmod o= /etc/pleroma/config.exs
 
 EXPOSE 4000
 
-ENTRYPOINT ["/pleroma/docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
