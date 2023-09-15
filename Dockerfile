@@ -10,17 +10,12 @@ RUN echo "http://nl.alpinelinux.org/alpine/latest-stable/main" >> /etc/apk/repos
     && apk add git gcc g++ musl-dev make cmake file-dev \
     exiftool imagemagick libmagic ncurses postgresql-client ffmpeg
 
-RUN addgroup -g ${GID} pleroma \
-    && adduser -h /pleroma -s /bin/false -D -G pleroma -u ${UID} pleroma
-
 ARG DATA=/var/lib/pleroma
 RUN mkdir -p /etc/pleroma \
-    && chown -R pleroma /etc/pleroma \
     && mkdir -p ${DATA}/uploads \
-    && mkdir -p ${DATA}/static \
-    && chown -R pleroma ${DATA}
+    && mkdir -p ${DATA}/static
 
-USER pleroma
+USER root
 WORKDIR /pleroma
 
 RUN git clone -b develop https://git.pleroma.social/pleroma/pleroma.git /pleroma \
@@ -35,9 +30,7 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
 
 COPY ./config.exs /etc/pleroma/config.exs
 
-USER root
 RUN chmod o= /etc/pleroma/config.exs
-USER pleroma
 
 EXPOSE 4000
 
