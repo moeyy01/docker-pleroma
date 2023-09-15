@@ -1,4 +1,4 @@
-FROM elixir:1.11.4-alpine
+FROM elixir:1.13.4-alpine
 
 ARG PLEROMA_VER=develop
 ARG UID=911
@@ -30,7 +30,7 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
 
 COPY ./config.exs /pleroma/config.exs
 
-COPY ./docker-entrypoint.sh /pleroma/config.exs
+COPY ./docker-entrypoint.sh /pleroma/docker-entrypoint.sh
 
 RUN chmod o= /pleroma/config.exs
 
