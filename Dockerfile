@@ -28,10 +28,12 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
     && mkdir release \
     && mix release --path /pleroma
 
-COPY ./config.exs /etc/pleroma/config.exs
+COPY ./config.exs /pleroma/config.exs
 
-RUN chmod o= /etc/pleroma/config.exs
+COPY ./docker-entrypoint.sh /pleroma/config.exs
+
+RUN chmod o= /pleroma/config.exs
 
 EXPOSE 4000
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["/pleroma/docker-entrypoint.sh"]
